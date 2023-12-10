@@ -1,10 +1,6 @@
 import { useState } from 'react';
 
 import Sparkels from '../Images/Sparkles.svg';
-import Futurama from '../Images/Logos/Futurama.svg';
-import RickAndMorty from '../Images/Logos/FamilyGuy.svg';
-import GameOfThrones from '../Images/Logos/GameOfThrones.svg'
-import FamilyGuy from '../Images/Logos/FamilyGuy.svg'
 
 export default function Quiz() {
     // State Management
