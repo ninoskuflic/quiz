@@ -1,0 +1,107 @@
+$gray: #EDEDF0;
+
+* {
+  font-family: 'GT Walsheim Pro';
+}
+
+body {
+  background-color: white;
+  user-select: none;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &.quiz-selection {
+    flex-direction: row;
+
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
+
+    button {
+      min-height: 80px;
+      max-width: 230px;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: 1px solid $gray;
+    border-radius: 25px;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 14px;
+    width: 300px;
+
+    &:hover {
+      transition: background-color 400ms linear;
+      background-color: $gray;
+    }
+  }
+}
+
+.question-section {
+  text-align: center;
+  font-size: 1.7rem;
+
+  .question-count {
+    display: block;
+    font-size: 14px;
+    color: gray;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+.score-section {
+  display: flex;
+  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    margin-bottom: 10px;
+    max-width: 100px;
+  }
+
+  p {
+    color: #808080;
+    margin: 5px;
+    font-weight: 300;
+    font-size: 15px;
+  }
+}
+
+.loading {
+  text-align: center;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  p {
+    color: #808080;
+    margin: 5px;
+    font-weight: 300;
+  }
+}
+
+.logo {
+  max-width: 100px;
+}
