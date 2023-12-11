@@ -1,20 +1,29 @@
 import { useState } from 'react';
 
+// Images
 import Sparkels from '../Images/Sparkles.svg';
+import TheSimpsons from '../Images/Logos/the-simpsons.svg';
+import Futurama from '../Images/Logos/futurama.svg';
+import RickAndMorty from '../Images/Logos/rick-and-morty.svg';
+import FamilyGuy from '../Images/Logos/family-guy.svg';
+import GameOfThrones from '../Images/Logos/game-of-thrones.svg';
+import HarryPotter from '../Images/Logos/harry-potter.svg';
 
 export default function Quiz() {
     // State Management
-    const [questions, setQuestions] = useState('')
+    // Quiz State
+    const [questions, setQuestions] = useState(null)
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false)
     const [score, setScore] = useState(0)
+    const [selectedQuiz, setSelectedQuiz] = useState(false);
+
+    // API State
     const [loading, setLoading] = useState(true);
-    const [quizSelected, setQuizSelected] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetching the API
-
-    function handleAnswerButtonClick(chosenAnswer, correctAnswer) {
+    // Handle answer button click+
+    function answerClick(chosenAnswer, correctAnswer) {
         if (chosenAnswer === correctAnswer) {
             setScore(score + 1);
         }
@@ -29,8 +38,9 @@ export default function Quiz() {
         }
     }
 
+    // Select Quiz
     function selectQuiz(choice) {
-        setQuizSelected(true);
+        setSelectedQuiz(true);
         const fetchData = async () => {
             try {
                 const response = await fetch(`https://api.learn.skuflic.com/${choice}`);
@@ -47,28 +57,46 @@ export default function Quiz() {
     }
 
     return (
-        <>  {!quizSelected && <div className='loading'>
+        <>  {!selectedQuiz && <div className='info'>
             <h1>Select Your Quiz</h1>
             <p>Ready to test your knowledge?</p>
-            <div className='answer-section quiz-selection'>
-                <button onClick={() => selectQuiz('simpsons')}><img src='https://upload.wikimedia.org/wikipedia/commons/9/98/The_Simpsons_yellow_logo.svg' alt='The Simpsons' className='logo' /></button>
-                <button onClick={() => selectQuiz('futurama')}><img src='https://upload.wikimedia.org/wikipedia/commons/8/84/Futurama_1999_logo.svg' alt='Futurama' className='logo' /></button>
-                <button onClick={() => selectQuiz('rickandmorty')}><img src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg' alt='Rick and Morty' className='logo' /></button>
-                <button onClick={() => selectQuiz('familyguy')}><img src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Family_Guy_logo.svg' alt='Family Guy' className='logo' /></button>
-                <button onClick={() => selectQuiz('gameofthrones')} ><img src='https://upload.wikimedia.org/wikipedia/commons/2/2e/Game_of_Thrones_2011_logo.svg' alt='Game of Thrones' className='logo' /></button>
+            <div className='general-section quiz-selection'>
+                <button onClick={() => selectQuiz('the-simpsons')}>
+                    <img src={TheSimpsons} alt='The Simpsons' className='logo' />
+                </button>
+
+                <button onClick={() => selectQuiz('futurama')}>
+                    <img src={Futurama} alt='Futurama' className='logo' />
+                </button>
+
+                <button onClick={() => selectQuiz('rick-and-morty')}>
+                    <img src={RickAndMorty} alt='Rick and Morty' className='logo' />
+                </button>
+
+                <button onClick={() => selectQuiz('family-guy')}>
+                    <img src={FamilyGuy} alt='Family Guy' className='logo' />
+                </button>
+
+                <button onClick={() => selectQuiz('game-of-thrones')}>
+                    <img src={GameOfThrones} alt='Game of Thrones' className='logo' />
+                </button>
+
+                <button onClick={() => selectQuiz('harry-potter')} >
+                    <img src={HarryPotter} alt='Harry Potter' className='logo' />
+                </button>
             </div>
         </div>}
-            {loading && quizSelected && <div className='loading'><h1>Loading...</h1><p>Please wait while we load your Futurama Quiz App</p></div>}
-            {error && <div className='loading'><h1>That's an error!</h1><p>Error description: {error.message}</p></div>}
+            {loading && selectedQuiz && <div className='info'><h1>Loading...</h1><p>Please wait while we load your Futurama Quiz App</p></div>}
+            {error && <div className='info'><h1>That's an error!</h1><p>Error description: {error.message}</p></div>}
             {!loading && !error && <div className='app'>
                 {showScore ? (
                     <div className='score-section'>
                         <img src={Sparkels} alt='Sparkles' />
-                        You scored {score} out of {questions?.length}.
+                        You've scored {score} out of {questions?.length}
                         <p>We hope you've had fun!</p>
+                        <button onClick={() => window.location = ''} className='general-section'>Play Again</button>
                     </div>
-                )
-                    :
+                ) :
                     (
                         <>
                             <div className='question-section'>
@@ -78,12 +106,10 @@ export default function Quiz() {
                                 </div>
                             </div>
 
-                            <div className='answer-section'>
-                                {
-                                    questions[currentQuestion]?.possibleAnswers.sort(() => Math.random() - 0.5)?.map(answer => (
-                                        <button onClick={() => handleAnswerButtonClick(answer, questions[currentQuestion].correctAnswer)} key={crypto.randomUUID()}>{answer}</button>
-                                    ))
-                                }
+                            <div className='general-section'>
+                                {questions[currentQuestion]?.possibleAnswers.sort(() => Math.random() - 0.5)?.map(answer => (
+                                    <button onClick={() => answerClick(answer, questions[currentQuestion].correctAnswer)} key={crypto.randomUUID()}>{answer}</button>
+                                ))}
                             </div>
                         </>
                     )}

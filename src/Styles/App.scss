@@ -1,7 +1,8 @@
-$gray: #EDEDF0;
+@import './variables';
+@import './mixins';
 
 * {
-  font-family: 'GT Walsheim Pro';
+  font-family: $font-family;
 }
 
 body {
@@ -16,7 +17,7 @@ body {
   align-items: center;
 }
 
-.answer-section {
+.general-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,24 +32,19 @@ body {
     button {
       min-height: 80px;
       max-width: 230px;
+      @include buttonStyles(transparent, $gray);
     }
   }
 
   button {
-    background-color: transparent;
-    border: 1px solid $gray;
-    border-radius: 25px;
-    color: black;
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: 300;
-    font-size: 14px;
-    width: 300px;
+    @include buttonStyles(transparent, $gray);
 
-    &:hover {
-      transition: background-color 400ms linear;
-      background-color: $gray;
+    &.correct {
+      @include buttonStyles(green, green);
+    }
+
+    &.incorrect {
+      @include buttonStyles(red, red);
     }
   }
 }
@@ -73,6 +69,10 @@ body {
   align-items: center;
   flex-direction: column;
 
+  button {
+    @include buttonStyles(transparent, $gray);
+  }
+
   img {
     margin-bottom: 10px;
     max-width: 100px;
@@ -86,7 +86,7 @@ body {
   }
 }
 
-.loading {
+.info {
   text-align: center;
 
   h1 {
@@ -104,4 +104,14 @@ body {
 
 .logo {
   max-width: 100px;
+}
+
+.answer-feedback {
+  font-size: 14px;
+  background-color: $gray;
+  font-weight: 200;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 10px;
+  margin: 0 auto;
 }

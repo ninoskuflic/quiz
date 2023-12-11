@@ -1,6 +1,6 @@
 {
-  "name": "futurama-quiz-app",
-  "version": "0.1.0",
+  "name": "skuflic-quiz",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
