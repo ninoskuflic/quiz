@@ -86,7 +86,7 @@ export default function Quiz() {
                 </button>
             </div>
         </div>}
-            {loading && selectedQuiz && <div className='info'><h1>Loading...</h1><p>Please wait while we load your Futurama Quiz App</p></div>}
+            {loading && selectedQuiz && <div className='info'><h1>Loading...</h1><p>Please wait while we load your quiz</p></div>}
             {error && <div className='info'><h1>That's an error!</h1><p>Error description: {error.message}</p></div>}
             {!loading && !error && <div className='app'>
                 {showScore ? (
