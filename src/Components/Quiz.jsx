@@ -65,6 +65,10 @@ export default function Quiz() {
                     <img src={TheSimpsons} alt='The Simpsons' className='logo' />
                 </button>
 
+                <button onClick={() => selectQuiz('family-guy')}>
+                    <img src={FamilyGuy} alt='Family Guy' className='logo' />
+                </button>
+
                 <button onClick={() => selectQuiz('futurama')}>
                     <img src={Futurama} alt='Futurama' className='logo' />
                 </button>
@@ -73,16 +77,12 @@ export default function Quiz() {
                     <img src={RickAndMorty} alt='Rick and Morty' className='logo' />
                 </button>
 
-                <button onClick={() => selectQuiz('family-guy')}>
-                    <img src={FamilyGuy} alt='Family Guy' className='logo' />
+                <button onClick={() => selectQuiz('harry-potter')} >
+                    <img src={HarryPotter} alt='Harry Potter' className='logo' />
                 </button>
 
                 <button onClick={() => selectQuiz('game-of-thrones')}>
                     <img src={GameOfThrones} alt='Game of Thrones' className='logo' />
-                </button>
-
-                <button onClick={() => selectQuiz('harry-potter')} >
-                    <img src={HarryPotter} alt='Harry Potter' className='logo' />
                 </button>
             </div>
         </div>}
@@ -101,7 +101,7 @@ export default function Quiz() {
                         <>
                             <div className='question-section'>
                                 <div className='question-text'>
-                                    <span key={crypto.randomUUID()}>{questions[currentQuestion]?.question}</span>
+                                    <span key={questions[currentQuestion].id}>{questions[currentQuestion]?.question}</span>
                                     <span className='question-count'>Question {currentQuestion + 1} / {questions?.length}</span>
                                 </div>
                             </div>

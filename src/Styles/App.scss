@@ -8,6 +8,8 @@
 body {
   background-color: white;
   user-select: none;
+  padding: 0;
+  margin: 0;
 }
 
 #root {
@@ -23,6 +25,7 @@ body {
   align-items: center;
 
   &.quiz-selection {
+    margin-top: 1rem;
     flex-direction: row;
 
     @media only screen and (max-width: 600px) {
