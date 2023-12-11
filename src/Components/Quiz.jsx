@@ -18,6 +18,10 @@ export default function Quiz() {
     const [score, setScore] = useState(0)
     const [selectedQuiz, setSelectedQuiz] = useState(false);
 
+    // Feedback State
+    const [feedback, setFeedback] = useState('');
+    const [feedbackVisibility, setFeedbackVisibility] = useState(false);
+
     // API State
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -26,7 +30,16 @@ export default function Quiz() {
     function answerClick(chosenAnswer, correctAnswer) {
         if (chosenAnswer === correctAnswer) {
             setScore(score + 1);
+            setFeedback(true);
+            setFeedbackVisibility(true);
+        } else {
+            setFeedback(false);
+            setFeedbackVisibility(true);
         }
+
+        setTimeout(() => {
+            setFeedbackVisibility(false);
+        }, 650)
 
         const nextQuetions = currentQuestion + 1;
 
@@ -34,7 +47,9 @@ export default function Quiz() {
             setCurrentQuestion(nextQuetions);
         }
         else {
-            setShowScore(true)
+            setTimeout(() => {
+                setShowScore(true)
+            }, 650)
         }
     }
 
@@ -46,7 +61,6 @@ export default function Quiz() {
                 const response = await fetch(`https://api.learn.skuflic.com/${choice}`);
                 const result = await response.json();
                 setQuestions(result?.sort(() => Math.random() - 0.5));
-
             } catch (error) {
                 setError(error);
             } finally {
@@ -99,18 +113,26 @@ export default function Quiz() {
                 ) :
                     (
                         <>
-                            <div className='question-section'>
-                                <div className='question-text'>
-                                    <span key={questions[currentQuestion].id}>{questions[currentQuestion]?.question}</span>
-                                    <span className='question-count'>Question {currentQuestion + 1} / {questions?.length}</span>
+                            {!feedbackVisibility && <>
+                                <div className='question-section'>
+                                    <div className='question-text'>
+                                        <span key={questions[currentQuestion].id}>{questions[currentQuestion]?.question}</span>
+                                        <span className='question-count'>Question {currentQuestion + 1} / {questions?.length}</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className='general-section'>
-                                {questions[currentQuestion]?.possibleAnswers.sort(() => Math.random() - 0.5)?.map(answer => (
-                                    <button onClick={() => answerClick(answer, questions[currentQuestion].correctAnswer)} key={crypto.randomUUID()}>{answer}</button>
-                                ))}
-                            </div>
+                                <div className='general-section'>
+                                    {questions[currentQuestion]?.possibleAnswers.sort(() => Math.random() - 0.5)?.map(answer => (
+                                        <button onClick={() => answerClick(answer, questions[currentQuestion].correctAnswer)} key={crypto.randomUUID()}>{answer}</button>
+                                    ))}
+                                </div>
+                            </>}
+                            {feedbackVisibility &&
+                                <div className={feedback ? 'feedback-section correct' : 'feedback-section incorrect'}>
+                                    <h1>{feedback ? '🙂' : '🫤'}</h1>
+                                    <h2>{feedback ? 'Yay! Your answer is correct!' : 'Oops, better luck next time!'}</h2>
+                                </div>
+                            }
                         </>
                     )}
             </div>}
