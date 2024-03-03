@@ -58,7 +58,7 @@ export default function Quiz() {
         setSelectedQuiz(choice);
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://api.learn.skuflic.com/${choice}`);
+                const response = await fetch(`https://api.edu.skuflic.com/${choice}`);
                 const result = await response.json();
                 setQuestions(result?.sort(() => Math.random() - 0.5));
             } catch (error) {
