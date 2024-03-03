@@ -143,7 +143,11 @@ body {
     margin-bottom: 5px;
   }
 
-  a {
+  a,
+  button {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
     font-weight: 300;
     color: $border-light;
     text-decoration: none;
