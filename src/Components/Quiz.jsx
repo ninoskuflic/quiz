@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Images
 import Sparkels from '../Images/Sparkles.svg';
@@ -8,6 +8,8 @@ import RickAndMorty from '../Images/Logos/rick-and-morty.svg';
 import FamilyGuy from '../Images/Logos/family-guy.svg';
 import GameOfThrones from '../Images/Logos/game-of-thrones.svg';
 import HarryPotter from '../Images/Logos/harry-potter.svg';
+
+import * as CookieConsent from 'vanilla-cookieconsent';
 
 export default function Quiz() {
     // State Management
@@ -197,36 +199,115 @@ export default function Quiz() {
             break;
     }
 
+    useEffect(() => {
+        CookieConsent.run({
+            onConsent: ({ cookie, changedCategories, changedServices }) => {
+                window.dataLayer.push({ 'event': 'client-consent-update' });
+            },
+            guiOptions: {
+                consentModal: {
+                    layout: 'cloud',
+                    position: 'bottom center',
+                    equalWeightButtons: true,
+                    flipButtons: true
+                },
+                preferencesModal: {
+                    layout: 'box',
+                    position: 'right',
+                    equalWeightButtons: true,
+                    flipButtons: true
+                }
+            },
+            categories: {
+                necessary: {
+                    readOnly: true
+                },
+                analytics: {}
+            },
+            language: {
+                default: 'en',
+                translations: {
+                    en: {
+                        consentModal: {
+                            title: 'Cookies improve your experience',
+                            description: 'We use cookies and data to deliver and maintain our services, track outages and protect against spam, fraud, and abuse, and measure audience engagement and site statistics to understand how our services are used and enhance the quality of those services. You can make changes at any time. For more information, see our Privacy & Cookie Policy.',
+                            closeIconLabel: '',
+                            acceptAllBtn: 'Accept all',
+                            acceptNecessaryBtn: 'Reject all',
+                            showPreferencesBtn: 'Manage preferences',
+                            footer: '<a href=\'https://go.skuflic.com/privacy\'>Privacy Policy</a>\n<a href=\'https://go.skuflic.com/servicesagreement\'>Terms and conditions</a>'
+                        },
+                        preferencesModal: {
+                            title: 'Consent Preferences Center',
+                            closeIconLabel: 'Close modal',
+                            acceptAllBtn: 'Accept all',
+                            acceptNecessaryBtn: 'Reject all',
+                            savePreferencesBtn: 'Save preferences',
+                            serviceCounterLabel: 'Service|Services',
+                            sections: [
+                                {
+                                    title: 'Your Privacy Choices',
+                                    description: 'In this panel you can express some preferences related to the processing of your personal information.\nYou may review and change expressed choices at any time by resurfacing this panel via the provided link.\nTo deny your consent to the specific processing activities described below, switch the toggles to off or use the "Reject all" button and confirm you want to save your choices.'
+                                },
+                                {
+                                    title: 'Strictly Necessary <span class=\'pm__badge\'>Always On</span>',
+                                    description: 'Enables core functionality to power your language, location and preferences. Also supports security, network management and accessibility.',
+                                    linkedCategory: 'necessary'
+                                },
+                                {
+                                    title: 'Performance & Analytics',
+                                    description: 'Allows use of behavioural data to optimise performance, review how you interact with our sites and apps, and improve Skuflic.com experiences.',
+                                    linkedCategory: 'analytics'
+                                },
+                                {
+                                    title: 'More information',
+                                    description: 'If you have any questions about how we respect your data and privacy, feel free to <a class=\'cc__link\' href=\'https://go.skuflic.com/support\'>get in touch</a> with us.'
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            disablePageInteraction: true
+        });
+    }, [])
 
     return (
-        <>  {!selectedQuiz && <div className='info'>
-            <p>Select your quiz to get started</p>
-            <div className='general-section quiz-selection'>
-                <button onClick={() => selectQuiz('the-simpsons')}>
-                    <img src={TheSimpsons} alt='The Simpsons' className='logo' />
-                </button>
+        <>  {!selectedQuiz &&
+            <div className='info'>
+                <p>Select your quiz to get started</p>
+                <div className='general-section quiz-selection'>
+                    <button onClick={() => selectQuiz('the-simpsons')}>
+                        <img src={TheSimpsons} alt='The Simpsons' className='logo' />
+                    </button>
 
-                <button onClick={() => selectQuiz('family-guy')}>
-                    <img src={FamilyGuy} alt='Family Guy' className='logo' />
-                </button>
+                    <button onClick={() => selectQuiz('family-guy')}>
+                        <img src={FamilyGuy} alt='Family Guy' className='logo' />
+                    </button>
 
-                <button onClick={() => selectQuiz('futurama')}>
-                    <img src={Futurama} alt='Futurama' className='logo' />
-                </button>
+                    <button onClick={() => selectQuiz('futurama')}>
+                        <img src={Futurama} alt='Futurama' className='logo' />
+                    </button>
 
-                <button onClick={() => selectQuiz('rick-and-morty')}>
-                    <img src={RickAndMorty} alt='Rick and Morty' className='logo' />
-                </button>
+                    <button onClick={() => selectQuiz('rick-and-morty')}>
+                        <img src={RickAndMorty} alt='Rick and Morty' className='logo' />
+                    </button>
 
-                <button onClick={() => selectQuiz('harry-potter')} >
-                    <img src={HarryPotter} alt='Harry Potter' className='logo' />
-                </button>
+                    <button onClick={() => selectQuiz('harry-potter')} >
+                        <img src={HarryPotter} alt='Harry Potter' className='logo' />
+                    </button>
 
-                <button onClick={() => selectQuiz('game-of-thrones')}>
-                    <img src={GameOfThrones} alt='Game of Thrones' className='logo' />
-                </button>
-            </div>
-        </div>}
+                    <button onClick={() => selectQuiz('game-of-thrones')}>
+                        <img src={GameOfThrones} alt='Game of Thrones' className='logo' />
+                    </button>
+                </div>
+                <div className='legal'>
+                    <a href='#' data-cc='show-preferencesModal'>Cookie Settings</a>
+                    <a href='https://go.skuflic.com/servicesagreement' target='_blank' rel='noreferrer'>Services Agreement</a>
+                    <a href='https://go.skuflic.com/privacy' target='_blank' rel='noreferrer'>Privacy Policy</a>
+                    <p>TM and Copyright &copy; {new Date().getFullYear()} Skuflic.com. All rights reserved.</p>
+                </div>
+            </div>}
             {loading && selectedQuiz && <div className='info'><h1>Loading...</h1><p>Please wait while we load your quiz</p></div>}
             {error && <div className='info'><h1>That's an error!</h1><p>Error description: {error.message}</p></div>}
             {!loading && !error && <div className='app'>
