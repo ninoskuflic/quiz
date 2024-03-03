@@ -302,6 +302,7 @@ export default function Quiz() {
                     </button>
                 </div>
                 <div className='legal'>
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a href='#' data-cc='show-preferencesModal'>Cookie Settings</a>
                     <a href='https://go.skuflic.com/servicesagreement' target='_blank' rel='noreferrer'>Services Agreement</a>
                     <a href='https://go.skuflic.com/privacy' target='_blank' rel='noreferrer'>Privacy Policy</a>
