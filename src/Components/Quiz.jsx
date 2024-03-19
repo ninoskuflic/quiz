@@ -231,14 +231,14 @@ export default function Quiz() {
             // Remove the script from the document body
             document.body.removeChild(script);
         };
-    }, []); // Empty dependency array means this effect runs only once after initial render
+    }, []);
 
 
     return (
         <>  {!selectedQuiz &&
             <div className='info'>
                 <p>Select your quiz to get started</p>
-                <div className='general-section quiz-selection'>
+                <div className='answers quiz-selection'>
                     <button onClick={() => selectQuiz('the-simpsons')}>
                         <img src={TheSimpsons} alt='The Simpsons' className='logo' />
                     </button>
@@ -276,22 +276,22 @@ export default function Quiz() {
                 {showScore ? (
                     <div className='score-section'>
                         <img src={Sparkels} alt='Sparkles' />
-                        You've scored {score} out of {questions?.length}
+                        <p>You've scored {score} out of {questions?.length}</p>
                         <p>{resultMessage}</p>
-                        <button onClick={() => window.location = ''} className='general-section'>Play Again</button>
+                        <button onClick={() => window.location = ''} className='answers'>Play Again</button>
                     </div>
                 ) :
                     (
                         <>
                             {!feedbackVisibility && <>
-                                <div className='question-section'>
+                                <div className='question'>
                                     <div className='question-text'>
                                         <span key={questions[currentQuestion].id}>{questions[currentQuestion]?.question}</span>
-                                        <span className='question-count'>Question {currentQuestion + 1} / {questions?.length}</span>
+                                        <span className='count'>Question {currentQuestion + 1} / {questions?.length}</span>
                                     </div>
                                 </div>
 
-                                <div className='general-section'>
+                                <div className='answers'>
                                     {questions[currentQuestion]?.possibleAnswers.sort(() => Math.random() - 0.5)?.map(answer => (
                                         <button onClick={() => answerClick(answer, questions[currentQuestion].correctAnswer)} key={crypto.randomUUID()}>{answer}</button>
                                     ))}
@@ -299,7 +299,7 @@ export default function Quiz() {
                             </>}
                             {feedbackVisibility &&
                                 <div className={feedback ? 'feedback-section correct' : 'feedback-section incorrect'}>
-                                    <h1>{feedback ? '🙂' : '🫤'}</h1>
+                                    <span class="material-symbols-outlined"> {feedback ? 'sentiment_satisfied' : 'sentiment_dissatisfied'}</span>
                                     <h2>{feedback ? 'Yay! Your answer is correct!' : 'Oops, better luck next time!'}</h2>
                                 </div>
                             }
