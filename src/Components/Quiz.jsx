@@ -299,8 +299,10 @@ export default function Quiz() {
                             </>}
                             {feedbackVisibility &&
                                 <div className={feedback ? 'feedback-section correct' : 'feedback-section incorrect'}>
-                                    <span class="material-symbols-outlined"> {feedback ? 'sentiment_satisfied' : 'sentiment_dissatisfied'}</span>
-                                    <h2>{feedback ? 'Yay! Your answer is correct!' : 'Oops, better luck next time!'}</h2>
+
+                                    {!feedback ? <svg width="60px" height="60px" stroke-width="1.3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M8.5 9C8.22386 9 8 8.77614 8 8.5C8 8.22386 8.22386 8 8.5 8C8.77614 8 9 8.22386 9 8.5C9 8.77614 8.77614 9 8.5 9Z" fill="#000000" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5 9C15.2239 9 15 8.77614 15 8.5C15 8.22386 15.2239 8 15.5 8C15.7761 8 16 8.22386 16 8.5C16 8.77614 15.7761 9 15.5 9Z" fill="#000000" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.5 15.5C7.5 15.5 9 13.5 12 13.5C15 13.5 16.5 15.5 16.5 15.5" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg> : <svg width="60px" height="60px" stroke-width="1.3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M10 9H8M16 9H14M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12ZM14 13H10V16C10 16.6667 10.4 18 12 18C13.6 18 14 16.6667 14 16V13Z" stroke="#000000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>}
+
+                                    <h2>{!feedback ? 'Oops, better luck next time!' : 'Yay! Your answer is correct!'}</h2>
                                 </div>
                             }
                         </>
