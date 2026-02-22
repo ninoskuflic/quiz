@@ -1,8 +1,16 @@
 @import './variables';
 @import './mixins';
 
+@font-face {
+  font-family: 'Cal Sans UI';
+  src: url('https://static.skuflic.com/fonts/Cal-Sans/CalSansUI-Variable.woff2') format('woff2-variations');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
-  font-family: $font-family;
+  font-family: 'Cal Sans UI', ui-sans-serif, system-ui, sans-serif;
 }
 
 body,
@@ -161,7 +169,6 @@ html {
     padding-right: 5px;
     font-size: 10px;
 
-
     &:nth-child(3) {
       border: none;
       margin: 0;
@@ -171,7 +178,6 @@ html {
     &:hover {
       text-decoration: underline;
     }
-
   }
 
   span {
